@@ -24,7 +24,7 @@ const SYMBOL_VALUES = {
 const deposit = () => {
 
    while (true) {
-   const depositAmount = prompt("Enter a deposit amount:: "); 
+   const depositAmount = prompt("Enter a deposit amount: "); 
 
    // we then convert the input into and integer
    const numberDepositAmount = parseFloat(depositAmount);
@@ -150,15 +150,36 @@ const getWinnings = (rows, bet, lines) => {
    return winnings;
 };
 
-// console.log(reels);
-let balance = deposit();
-const numberOfLines = getNumberOfLines();
-const bet = getBet(balance, numberOfLines);
-const reels = spin();
-const rows = transpose(reels);
-console.log(reels);
-console.log(rows);
-printRows(rows);
-const winnings = getWinnings(rows, bet, numberOfLines);
 
-console.log("you won $", + winnings.toString());
+// here is the overall game function 
+const game = () => {
+   let balance = deposit();
+
+   while (true) {
+      // console.log(reels);
+      console.log("Your balance is $" + balance);
+   const numberOfLines = getNumberOfLines();
+   const bet = getBet(balance, numberOfLines);
+   balance -= bet*numberOfLines;
+   const reels = spin();
+   const rows = transpose(reels);
+   // console.log(reels);
+   // console.log(rows);
+   printRows(rows);
+   const winnings = getWinnings(rows, bet, numberOfLines);
+   balance += winnings;
+   
+   console.log("you won $", + winnings.toString());
+
+   if (balance <= 0) {
+      console.log("You ran out of money");
+      break;
+   } 
+   console.log("your balance is : $" + balance);
+   const playAgain = prompt("do you want to play again(y/n)?");
+
+   if(playAgain != "y") break;
+   }
+};
+
+game();
