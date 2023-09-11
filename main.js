@@ -1,4 +1,5 @@
-
+// Here is a small slot-machine game
+// it must be noted that i do not promote gambling in any way
 
 
 const prompt = require("prompt-sync")();
